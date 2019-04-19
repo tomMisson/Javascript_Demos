@@ -1,9 +1,9 @@
-var MongoClient = require('mongodb').MongoClient;
-var url = "mongodb://localhost:27017/e-portfolio";
+let MongoClient = require('mongodb').MongoClient;
+let url = "mongodb://localhost:27017/e-portfolio";
 
-MongoClient.connect(url, { useNewUrlParser: true },  function(err, db) {
+MongoClient.connect(url, { useNewUrlParser: true }, async function(err, db) {
     if (err) throw err;
-    var dbo = db.db("E-portfolio");
+    let dbo = db.db("E-portfolio");
 
     /*dbo.collection("Qualifications").insertOn(
       {"Course":"Fundamentals of Digital Marketing",
@@ -12,8 +12,8 @@ MongoClient.connect(url, { useNewUrlParser: true },  function(err, db) {
       "Issue date":"2019-01-19T23:00:00.000Z",
       "Certificate number":"7KB 6RC HDV"})
 */
-    let res = Promise.resolve(dbo.collection("Qualifications").find().count()).then(function (res){
-    console.log("You have registered " + res + " qualifications");});
+    let res = await dbo.collection("Qualifications").find().count()
+    console.log("You have registered " + res + " qualifications");
     
     db.close();
 });
